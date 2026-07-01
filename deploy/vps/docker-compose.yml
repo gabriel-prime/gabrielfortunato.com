@@ -1,0 +1,13 @@
+services:
+  site:
+    image: ghcr.io/gabriel-prime/gabrielfortunato.com:latest
+    build:
+      context: ./source
+    container_name: app-site
+    restart: unless-stopped
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
