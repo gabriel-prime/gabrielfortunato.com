@@ -55,7 +55,7 @@
 
   --text: #2e333c;
   --text-soft: #5a616c;
-  --text-mute: #8a919c;
+  --text-mute: #79808c;
 
   --accent: var(--brand-ember);
   --accent-cool: #5a73a8;
@@ -101,8 +101,8 @@
   --surface-inset: #05070b;
 
   --text: #e8ecf2;
-  --text-soft: #a8b0bd;
-  --text-mute: #6d7686;
+  --text-soft: #aeb6c3;
+  --text-mute: #838d9c;
 
   --accent: var(--brand-ember);
   --accent-cool: #7f9bff;
@@ -127,7 +127,7 @@
   --glass-border: rgba(255, 255, 255, 0.12);
   --glass-shadow: 0 16px 46px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
-  --trace: #2c3340;
+  --trace: #48505f;
 }
 
 /* ------------------------------------------------------------------ *

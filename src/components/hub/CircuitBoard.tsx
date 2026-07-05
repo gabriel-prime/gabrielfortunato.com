@@ -1,36 +1,47 @@
 import { For } from 'solid-js'
 import { inputModules, outputModules } from '../../data/hub'
-import ConnectorTraces from './ConnectorTraces'
+import Connector, { type Bend } from './Connector'
 import CpuCard from './CpuCard'
 import ModuleCard from './ModuleCard'
 import OutputModule from './OutputModule'
 import styles from './CircuitBoard.module.css'
 
+/** Top row bends toward the centre, bottom bends up, middle runs flat. */
+const bendFor = (i: number, count: number): Bend =>
+  i === 0 ? 'down' : i === count - 1 ? 'up' : 'flat'
+
 /**
- * The board stage. A genuinely responsive 5-track grid on desktop
- * (inputs · traces · CPU · traces · outputs) that reflows to a single
- * stacked column on small screens — no fixed-canvas scaling hacks.
+ * The board stage. Three columns — inputs · CPU · outputs — where each module
+ * carries its own wire as a flex sibling, so a trace is always centred on its
+ * module regardless of card height. Reflows to a single stacked column on
+ * small screens (wires hidden).
  */
 export default function CircuitBoard() {
   return (
     <div class={styles.board}>
       <div class={styles.inputs}>
         <For each={inputModules}>
-          {(module, i) => <ModuleCard module={module} delay={i() + 1} />}
+          {(module, i) => (
+            <div class={styles.node}>
+              <ModuleCard module={module} delay={i() + 1} />
+              <Connector side="left" bend={bendFor(i(), inputModules.length)} delay={i()} />
+            </div>
+          )}
         </For>
       </div>
-
-      <ConnectorTraces side="left" />
 
       <div class={styles.core}>
         <CpuCard />
       </div>
 
-      <ConnectorTraces side="right" />
-
       <div class={styles.outputs}>
         <For each={outputModules}>
-          {(output, i) => <OutputModule output={output} delay={i() + 2} />}
+          {(output, i) => (
+            <div class={styles.node}>
+              <Connector side="right" bend={bendFor(i(), outputModules.length)} delay={i()} />
+              <OutputModule output={output} delay={i() + 2} />
+            </div>
+          )}
         </For>
       </div>
     </div>

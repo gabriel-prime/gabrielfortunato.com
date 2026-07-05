@@ -1,5 +1,7 @@
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
   padding: 18px 18px 16px;
   border-radius: var(--radius);
   text-decoration: none;
@@ -46,12 +48,48 @@
   animation: led 2.2s ease-in-out infinite;
 }
 
+.body {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
 .label {
-  display: block;
-  margin-top: 30px;
   font-family: var(--font-mono);
   font-size: 12.5px;
   letter-spacing: 0.14em;
+  color: var(--text);
+}
+
+/* Clickable affordance — a faint arrow that steps forward on hover. */
+.go {
+  font-size: 15px;
+  color: var(--text-mute);
+  transform: translateX(-2px);
+  opacity: 0.6;
+  transition: transform 0.25s var(--ease-out), opacity 0.25s ease, color 0.25s ease;
+}
+
+.card:hover .go,
+.card:focus-visible .go {
+  transform: translateX(2px);
+  opacity: 1;
+  color: var(--accent);
+}
+
+.desc {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
   color: var(--text-soft);
 }
 

@@ -158,6 +158,47 @@
   transition: left 1s var(--ease-out);
 }
 
+/* Status footer — fills the card, and is honest about what the "motor" is. */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+}
+
+.statusLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+
+.statusLive i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--brand-aqua);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-aqua) 80%, transparent);
+  animation: livePulse 2.4s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
 @keyframes chipPulse {
   0%,
   100% {

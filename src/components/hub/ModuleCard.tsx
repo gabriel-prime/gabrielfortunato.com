@@ -25,7 +25,14 @@ export default function ModuleCard(props: { module: HubModule; delay?: number })
         </span>
         <span class={styles.led} aria-hidden="true" />
       </div>
-      <span class={styles.label}>{props.module.label}</span>
+
+      <div class={styles.body}>
+        <div class={styles.labelRow}>
+          <span class={styles.label}>{props.module.label}</span>
+          <span class={styles.go} aria-hidden="true">→</span>
+        </div>
+        <span class={styles.desc}>{props.module.desc}</span>
+      </div>
     </A>
   )
 }

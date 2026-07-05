@@ -54,6 +54,15 @@ export default function CpuCard() {
       <div class={styles.groove} aria-hidden="true">
         <span class={styles.knob} style={{ left: sliderLeft() }} />
       </div>
+
+      <div class={styles.status}>
+        <span class={styles.statusLive}>
+          <i />
+          operacional
+        </span>
+        <span>infra própria</span>
+        <span>deploy contínuo</span>
+      </div>
     </div>
   )
 }

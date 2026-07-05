@@ -1,6 +1,6 @@
 .board {
   display: grid;
-  grid-template-columns: minmax(0, 260px) 96px minmax(0, 1fr) 96px minmax(0, 300px);
+  grid-template-columns: minmax(0, 384px) minmax(0, 1fr) minmax(0, 420px);
   align-items: center;
   gap: 0;
   width: 100%;
@@ -8,23 +8,35 @@
   margin: 0 auto;
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
+.inputs,
 .outputs {
   display: flex;
   flex-direction: column;
-  gap: 34px;
+  gap: 26px;
 }
 
 .core {
-  padding: 0 8px;
+  padding: 0;
 }
 
-/* Tablet: drop the SVG trace tracks, keep three columns of content. */
+/* One module + its wire, vertically centred together. */
+.node {
+  display: flex;
+  align-items: center;
+}
+
+/* The card keeps a stable width; the wire (flex-basis 0 so its intrinsic SVG
+   width doesn't steal space) stretches to bridge the whole gap to the CPU. */
+.node > a {
+  flex: 0 0 258px;
+  min-width: 0;
+}
+
+.node > :not(a) {
+  flex: 1 1 0;
+  min-width: 30px;
+}
+
 @media (max-width: 900px) {
   .board {
     grid-template-columns: 1fr;
@@ -44,10 +56,9 @@
   .outputs {
     gap: 22px;
   }
-}
 
-@media (max-width: 520px) {
-  .inputs {
-    flex-direction: column;
+  /* Wires are hidden on small screens; let the cards fill. */
+  .node > a {
+    flex: 1 1 auto;
   }
 }

@@ -18,12 +18,13 @@
   border-radius: 14px;
   background: var(--surface);
   box-shadow: var(--shadow-raised);
-  transition: transform 0.3s var(--ease-out);
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
 }
 
 .wrap:hover .card,
 .wrap:focus-visible .card {
   transform: translateY(-3px);
+  box-shadow: var(--shadow-raised-hover);
 }
 
 .label {
@@ -34,12 +35,12 @@
   color: var(--text);
 }
 
-.slot {
+.desc {
   margin-top: 5px;
   font-family: var(--font-mono);
   font-size: 11px;
-  font-style: italic;
-  color: var(--text-mute);
+  letter-spacing: 0.02em;
+  color: var(--text-soft);
 }
 
 .badge {
@@ -50,37 +51,48 @@
   background: #2e333c;
 }
 
-.tray {
+/* Stack tags + affordance arrow — replaces the ambiguous dot tray. */
+.meta {
   display: flex;
-  gap: 8px;
-  margin: 12px 10px 0;
-  padding: 12px 16px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 10px 0;
+  padding: 10px 14px;
   border-radius: 12px;
   background: var(--surface-2);
   box-shadow: var(--shadow-inset);
 }
 
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  opacity: 0.45;
+.tags {
+  display: flex;
+  gap: 6px;
 }
 
-.dot[data-on] {
+.tag {
+  padding: 4px 9px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+  background: var(--surface);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-mute) 22%, transparent);
+}
+
+.go {
+  font-size: 14px;
+  color: var(--text-mute);
+  transform: translateX(-2px);
+  opacity: 0.6;
+  transition: transform 0.25s var(--ease-out), opacity 0.25s ease, color 0.25s ease;
+}
+
+.wrap:hover .go,
+.wrap:focus-visible .go {
+  transform: translateX(2px);
   opacity: 1;
-  animation: led 2s ease-in-out infinite;
-}
-
-@keyframes led {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.35;
-  }
+  color: var(--accent);
 }
 
 @keyframes riseIn {
