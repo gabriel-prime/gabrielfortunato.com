@@ -1,5 +1,5 @@
 import { createEffect, createSignal, For, onCleanup, Show } from 'solid-js'
-import { createGate } from '../../lib/primitives'
+import { useEntrance } from '../../lib/entrance'
 import styles from './GateLoader.module.css'
 
 const TICKS = Array.from({ length: 18 }, (_, i) => i)
@@ -26,7 +26,7 @@ function PanelHardware() {
  * whole overlay unmounts once the doors finish sliding.
  */
 export default function GateLoader() {
-  const { progress, open } = createGate({ duration: 2200 })
+  const { progress, entered: open } = useEntrance()
   const [removed, setRemoved] = createSignal(false)
 
   createEffect(() => {

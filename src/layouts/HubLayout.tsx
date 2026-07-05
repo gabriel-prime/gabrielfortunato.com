@@ -3,6 +3,7 @@ import { For, type JSX } from 'solid-js'
 import GateLoader from '../components/hub/GateLoader'
 import ThemeToggle from '../components/hub/ThemeToggle'
 import { parallax } from '../lib/directives'
+import { EntranceProvider } from '../lib/entrance'
 import styles from './HubLayout.module.css'
 
 // Retain the directive through tree-shaking.
@@ -17,6 +18,7 @@ const navLinks = [
 /** Chrome for the neumorphic hub: frosted pill nav, board decor, footer. */
 export default function HubLayout(props: { children?: JSX.Element }) {
   return (
+    <EntranceProvider>
     <div class={styles.shell}>
       <GateLoader />
 
@@ -67,5 +69,6 @@ export default function HubLayout(props: { children?: JSX.Element }) {
         </div>
       </footer>
     </div>
+    </EntranceProvider>
   )
 }

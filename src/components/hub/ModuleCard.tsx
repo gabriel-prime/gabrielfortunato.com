@@ -1,6 +1,7 @@
 import { A } from '@solidjs/router'
 import type { HubModule } from '../../data/hub'
 import { parallax } from '../../lib/directives'
+import { useEntrance } from '../../lib/entrance'
 import Icon from './icons'
 import styles from './ModuleCard.module.css'
 
@@ -9,10 +10,12 @@ void parallax
 
 /** An input module on the board — a neumorphic tile that routes to a page. */
 export default function ModuleCard(props: { module: HubModule; delay?: number }) {
+  const { entered } = useEntrance()
   return (
     <A
       href={props.module.href}
       class={styles.card}
+      data-enter={entered() ? '' : undefined}
       style={{ 'animation-delay': `${(props.delay ?? 0) * 0.1}s` }}
       aria-label={`Ir para ${props.module.label}`}
     >

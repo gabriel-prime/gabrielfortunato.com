@@ -6,7 +6,13 @@
   background: var(--surface);
   box-shadow: var(--shadow-raised);
   transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
-  animation: riseIn 0.8s var(--ease-out) both;
+  /* Hidden until the gate opens; the reveal is triggered by [data-enter]. */
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.card[data-enter] {
+  animation: riseIn 0.8s var(--ease-out) forwards;
 }
 
 .card:hover,

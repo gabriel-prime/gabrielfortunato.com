@@ -1,6 +1,7 @@
 import { A } from '@solidjs/router'
 import CircuitBoard from '../components/hub/CircuitBoard'
 import PageMeta from '../components/PageMeta'
+import { useEntrance } from '../lib/entrance'
 import styles from './HomePage.module.css'
 
 /**
@@ -9,6 +10,7 @@ import styles from './HomePage.module.css'
  * No marketing scroll: you arrive, you choose, you leave.
  */
 export default function HomePage() {
+  const { entered } = useEntrance()
   return (
     <>
       <PageMeta
@@ -19,7 +21,7 @@ export default function HomePage() {
       <section class={styles.stage} aria-label="Placa de engenharia — escolha um caminho">
         <CircuitBoard />
 
-        <div class={styles.cta}>
+        <div class={styles.cta} data-enter={entered() ? '' : undefined}>
           <A href="/contato" class={styles.ctaButton} aria-label="Iniciar projeto">
             <span class={styles.ctaGlyph} />
           </A>

@@ -1,7 +1,12 @@
 .wrap {
   display: block;
   text-decoration: none;
-  animation: riseIn 0.8s var(--ease-out) both;
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.wrap[data-enter] {
+  animation: riseIn 0.8s var(--ease-out) forwards;
 }
 
 .card {

@@ -1,5 +1,6 @@
 import { createCycler } from '../../lib/primitives'
 import { cpuWords } from '../../data/hub'
+import { useEntrance } from '../../lib/entrance'
 import Icon from './icons'
 import styles from './CpuCard.module.css'
 
@@ -10,10 +11,11 @@ import styles from './CpuCard.module.css'
  */
 export default function CpuCard() {
   const { index, next, prev } = createCycler(cpuWords.length, { interval: 2800 })
+  const { entered } = useEntrance()
   const sliderLeft = () => `${8 + index() * (84 / cpuWords.length)}%`
 
   return (
-    <div class={styles.card}>
+    <div class={styles.card} data-enter={entered() ? '' : undefined}>
       <div class={styles.top}>
         <div class={styles.pins}>
           <span data-hot="" />

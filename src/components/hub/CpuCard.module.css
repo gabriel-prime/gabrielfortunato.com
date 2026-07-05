@@ -7,6 +7,20 @@
     14px 16px 40px var(--nm-dark),
     -8px -8px 22px var(--nm-light),
     inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  /* The CPU lands first; the traces then draw into it. */
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+}
+
+.card[data-enter] {
+  animation: cpuIn 0.7s var(--ease-out) forwards;
+}
+
+@keyframes cpuIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .top {

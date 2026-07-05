@@ -8,19 +8,67 @@
   transform: scaleX(-1);
 }
 
+/* --- Base traces: hidden until entrance, then draw module → CPU --- */
 .base {
   fill: none;
   stroke: var(--trace);
   stroke-width: 2.5;
 }
 
+.base path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.traces[data-enter] .base path {
+  animation: draw 0.7s var(--ease-out) forwards;
+}
+
+/* Stagger the draw per row so lines form with their module (top → bottom). */
+.traces[data-enter] .base path:nth-child(1),
+.traces[data-enter] .base path:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.traces[data-enter] .base path:nth-child(3),
+.traces[data-enter] .base path:nth-child(4) {
+  animation-delay: 0.32s;
+}
+.traces[data-enter] .base path:nth-child(5),
+.traces[data-enter] .base path:nth-child(6) {
+  animation-delay: 0.49s;
+}
+
+/* --- Ember current: lights up (keyframe, not transition, so it always fires
+   on entrance even when data-enter is present from first paint) once the grey
+   traces have drawn, then flows continuously. --- */
 .flow {
   fill: none;
   stroke: var(--accent);
   stroke-width: 2.5;
   stroke-dasharray: 7 9;
   filter: drop-shadow(0 0 3px color-mix(in srgb, var(--accent) 55%, transparent));
-  animation: flow 1.6s linear infinite;
+  opacity: 0;
+}
+
+.traces[data-enter] .flow {
+  animation:
+    flowIn 0.5s ease 0.75s both,
+    flow 1.6s linear infinite;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes flowIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes flow {
