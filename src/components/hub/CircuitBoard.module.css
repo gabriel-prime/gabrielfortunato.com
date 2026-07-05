@@ -1,0 +1,53 @@
+.board {
+  display: grid;
+  grid-template-columns: minmax(0, 260px) 96px minmax(0, 1fr) 96px minmax(0, 300px);
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.outputs {
+  display: flex;
+  flex-direction: column;
+  gap: 34px;
+}
+
+.core {
+  padding: 0 8px;
+}
+
+/* Tablet: drop the SVG trace tracks, keep three columns of content. */
+@media (max-width: 900px) {
+  .board {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    max-width: 560px;
+  }
+
+  .inputs {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .inputs > * {
+    flex: 1 1 150px;
+  }
+
+  .outputs {
+    gap: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .inputs {
+    flex-direction: column;
+  }
+}

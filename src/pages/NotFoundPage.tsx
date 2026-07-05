@@ -3,17 +3,19 @@ import PageMeta from '../components/PageMeta'
 
 export default function NotFoundPage() {
   return (
-    <section class="page-header not-found">
+    <section class="p-section" style={{ 'text-align': 'center', 'padding-top': '12vh' }}>
       <PageMeta
-        title="Pagina nao encontrada | Gabriel Fortunato"
-        description="A pagina solicitada nao existe."
+        title="Página não encontrada | Gabriel Fortunato"
+        description="A página solicitada não existe."
       />
 
-      <p class="eyebrow">404</p>
-      <h1>Pagina nao encontrada</h1>
-      <p>Essa rota ainda nao existe ou foi movida.</p>
-      <A class="button primary" href="/">
-        Voltar para inicio
+      <p class="p-eyebrow">404</p>
+      <div class="p-heading" style={{ margin: '0 auto 32px' }}>
+        <h1>Página não encontrada</h1>
+        <p>Essa rota ainda não existe ou foi movida.</p>
+      </div>
+      <A class="p-btn" href="/">
+        Voltar para o início
       </A>
     </section>
   )

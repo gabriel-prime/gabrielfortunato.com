@@ -1,7 +1,10 @@
 import { For } from 'solid-js'
 import PageMeta from '../components/PageMeta'
 import ProjectCard from '../components/ProjectCard'
+import { reveal } from '../lib/directives'
 import { projects } from '../data/projects'
+
+void reveal
 
 export default function ProjectsPage() {
   return (
@@ -11,17 +14,25 @@ export default function ProjectsPage() {
         description="Projetos pessoais de Gabriel Fortunato com Go, SolidJS, Docker e infraestrutura em VPS."
       />
 
-      <section class="page-header">
-        <p class="eyebrow">Projetos</p>
-        <h1>Coisas que estou construindo</h1>
-        <p>
-          Uma lista curta do que esta em producao, em estudo ou virando base para outros
-          experimentos.
-        </p>
-      </section>
+      <section class="p-section">
+        <div class="p-heading">
+          <p class="p-eyebrow">Projetos</p>
+          <h1>Coisas que estou construindo</h1>
+          <p>
+            Uma lista curta do que está em produção, em estudo ou virando base para outros
+            experimentos.
+          </p>
+        </div>
 
-      <section class="card-grid">
-        <For each={projects}>{(project) => <ProjectCard project={project} />}</For>
+        <div class="p-grid cols-2">
+          <For each={projects}>
+            {(project, i) => (
+              <div use:reveal={{ delay: i() * 100 }}>
+                <ProjectCard project={project} />
+              </div>
+            )}
+          </For>
+        </div>
       </section>
     </>
   )

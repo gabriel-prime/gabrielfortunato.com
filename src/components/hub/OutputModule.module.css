@@ -1,0 +1,90 @@
+.wrap {
+  display: block;
+  text-decoration: none;
+  animation: riseIn 0.8s var(--ease-out) both;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow-raised);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.wrap:hover .card,
+.wrap:focus-visible .card {
+  transform: translateY(-3px);
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--text);
+}
+
+.slot {
+  margin-top: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--text-mute);
+}
+
+.badge {
+  display: inline-flex;
+  padding: 8px 10px;
+  border-radius: 8px;
+  color: var(--brand-paper);
+  background: #2e333c;
+}
+
+.tray {
+  display: flex;
+  gap: 8px;
+  margin: 12px 10px 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--surface-2);
+  box-shadow: var(--shadow-inset);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.45;
+}
+
+.dot[data-on] {
+  opacity: 1;
+  animation: led 2s ease-in-out infinite;
+}
+
+@keyframes led {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

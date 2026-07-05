@@ -2,14 +2,10 @@ import { A } from '@solidjs/router'
 import { For } from 'solid-js'
 import type { BlogPost } from '../data/posts'
 
-type PostPreviewProps = {
-  readonly post: BlogPost
-}
-
-export default function PostPreview(props: PostPreviewProps) {
+export default function PostPreview(props: { readonly post: BlogPost }) {
   return (
-    <article class="card post-preview">
-      <div class="post-meta">
+    <article class="p-card">
+      <div class="p-meta">
         <time dateTime={props.post.publishedAt}>{formatDate(props.post.publishedAt)}</time>
         <span>{props.post.readingTime}</span>
       </div>
@@ -20,7 +16,7 @@ export default function PostPreview(props: PostPreviewProps) {
 
       <p>{props.post.description}</p>
 
-      <ul class="tag-list" aria-label={`Tags do post ${props.post.title}`}>
+      <ul class="p-tags" aria-label={`Tags do post ${props.post.title}`}>
         <For each={props.post.tags}>{(tag) => <li>{tag}</li>}</For>
       </ul>
     </article>

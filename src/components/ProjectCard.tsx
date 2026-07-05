@@ -1,27 +1,32 @@
-import { For } from 'solid-js'
+import { For, Show } from 'solid-js'
 import type { Project } from '../data/projects'
 
-type ProjectCardProps = {
-  readonly project: Project
-}
+const isExternal = (href: string) => /^https?:\/\//.test(href)
 
-export default function ProjectCard(props: ProjectCardProps) {
+export default function ProjectCard(props: { readonly project: Project }) {
   return (
-    <article class="card project-card">
-      <div>
-        <h3>{props.project.name}</h3>
-        <p>{props.project.summary}</p>
-      </div>
+    <article class="p-card">
+      <span class="p-card-kicker">case</span>
+      <h3>{props.project.name}</h3>
+      <p>{props.project.summary}</p>
+      <p class="p-muted">{props.project.impact}</p>
 
-      <p class="muted">{props.project.impact}</p>
-
-      <ul class="tag-list" aria-label={`Stack do projeto ${props.project.name}`}>
+      <ul class="p-tags" aria-label={`Stack do projeto ${props.project.name}`}>
         <For each={props.project.stack}>{(item) => <li>{item}</li>}</For>
       </ul>
 
-      <a href={props.project.href} class="inline-link">
-        Abrir <span aria-hidden="true">-&gt;</span>
-      </a>
+      <Show
+        when={isExternal(props.project.href)}
+        fallback={
+          <a class="p-link" href={props.project.href}>
+            Abrir <span aria-hidden="true">→</span>
+          </a>
+        }
+      >
+        <a class="p-link" href={props.project.href} target="_blank" rel="noreferrer">
+          Abrir <span aria-hidden="true">→</span>
+        </a>
+      </Show>
     </article>
   )
 }
