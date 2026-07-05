@@ -1,0 +1,62 @@
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 62px;
+  height: 34px;
+  padding: 0 8px;
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  background: var(--surface);
+  box-shadow: var(--shadow-inset);
+  transition: background 0.3s ease;
+}
+
+.icon {
+  position: relative;
+  z-index: 2;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--text-mute);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s ease, opacity 0.3s ease;
+}
+
+.icon[data-icon="sun"] {
+  opacity: 1;
+}
+
+.icon[data-icon="moon"] {
+  opacity: 0.4;
+}
+
+.toggle[data-dark] .icon[data-icon="sun"] {
+  opacity: 0.4;
+}
+
+.toggle[data-dark] .icon[data-icon="moon"] {
+  opacity: 1;
+  stroke: var(--brand-aqua);
+}
+
+.knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-raised);
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.toggle[data-dark] .knob {
+  transform: translateX(28px);
+}

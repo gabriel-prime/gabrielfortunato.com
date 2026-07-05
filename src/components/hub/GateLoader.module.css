@@ -1,0 +1,140 @@
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+
+.panelTop,
+.panelBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50.5%;
+  background: var(--surface-2);
+  transition: transform 1.15s cubic-bezier(0.76, 0, 0.18, 1);
+  will-change: transform;
+}
+
+.panelTop {
+  top: 0;
+}
+
+.panelBottom {
+  bottom: 0;
+}
+
+/* Machined seam bar along the meeting edge. */
+.seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 7px;
+  background: linear-gradient(180deg, #3a404a, #22262e);
+}
+
+.panelTop .seam {
+  bottom: 0;
+}
+
+.panelBottom .seam {
+  top: 0;
+  background: linear-gradient(0deg, #3a404a, #22262e);
+}
+
+.gate[data-open] .panelTop {
+  transform: translateY(-102%);
+}
+
+.gate[data-open] .panelBottom {
+  transform: translateY(102%);
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: var(--surface-raised);
+  box-shadow: var(--shadow-raised);
+}
+
+.markCore {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: var(--accent);
+  animation: markSpin 2.4s cubic-bezier(0.6, 0.05, 0.3, 0.95) infinite;
+}
+
+@keyframes markSpin {
+  0% {
+    transform: rotate(45deg) scale(1);
+  }
+  50% {
+    transform: rotate(225deg) scale(0.86);
+  }
+  100% {
+    transform: rotate(405deg) scale(1);
+  }
+}
+
+.ticks {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-raised);
+}
+
+.tick {
+  width: 5px;
+  height: 14px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--text-mute) 40%, transparent);
+  transition: background 0.15s ease;
+}
+
+.tick[data-state="on"] {
+  background: var(--text);
+}
+
+.tick[data-state="edge"] {
+  background: var(--accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+}
+
+.statusLabel {
+  font-size: 12.5px;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.statusPct {
+  font-size: 11.5px;
+  letter-spacing: 0.12em;
+  color: var(--text-mute);
+}

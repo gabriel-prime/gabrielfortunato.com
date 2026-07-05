@@ -1,27 +1,38 @@
 import { For } from 'solid-js'
 import PageMeta from '../components/PageMeta'
 import PostPreview from '../components/PostPreview'
+import { reveal } from '../lib/directives'
 import { posts } from '../data/posts'
+
+void reveal
 
 export default function BlogPage() {
   return (
     <>
       <PageMeta
         title="Blog | Gabriel Fortunato"
-        description="Notas tecnicas sobre desenvolvimento, SolidJS, Go, Docker e infraestrutura pessoal."
+        description="Notas técnicas sobre desenvolvimento, SolidJS, Go, Docker e infraestrutura pessoal."
       />
 
-      <section class="page-header">
-        <p class="eyebrow">Blog</p>
-        <h1>Notas tecnicas e aprendizados</h1>
-        <p>
-          Textos curtos sobre decisoes de arquitetura, bugs, deploys e tecnologias que estou
-          estudando.
-        </p>
-      </section>
+      <section class="p-section">
+        <div class="p-heading">
+          <p class="p-eyebrow">Blog</p>
+          <h1>Notas técnicas e aprendizados</h1>
+          <p>
+            Textos curtos sobre decisões de arquitetura, bugs, deploys e tecnologias que estou
+            estudando.
+          </p>
+        </div>
 
-      <section class="post-list">
-        <For each={posts}>{(post) => <PostPreview post={post} />}</For>
+        <div class="p-grid cols-2">
+          <For each={posts}>
+            {(post, i) => (
+              <div use:reveal={{ delay: i() * 100 }}>
+                <PostPreview post={post} />
+              </div>
+            )}
+          </For>
+        </div>
       </section>
     </>
   )
