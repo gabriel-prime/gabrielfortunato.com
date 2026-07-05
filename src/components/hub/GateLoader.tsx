@@ -4,11 +4,26 @@ import styles from './GateLoader.module.css'
 
 const TICKS = Array.from({ length: 18 }, (_, i) => i)
 
+/** The machined hardware repeated on each door (top + bottom mirror it). */
+function PanelHardware() {
+  return (
+    <>
+      <span class={styles.seam} />
+      <span class={styles.plate} />
+      <span class={styles.rail} data-side="l" />
+      <span class={styles.rail} data-side="r" />
+      <span class={styles.vents} />
+      <span class={styles.screw} data-side="l" />
+      <span class={styles.screw} data-side="r" />
+    </>
+  )
+}
+
 /**
- * Intro gate: split panels that retract to reveal the board, with a loader
- * (spinning mark, filling ticks, percentage). Purely reactive — the panels
- * animate off [data-open], and the whole overlay unmounts once the slide
- * finishes so it never traps focus or paints over the page.
+ * Intro gate: two brushed-metal doors that retract to reveal the board, joined
+ * by a central docking plate, side rails, screws and vents. The loader (spinning
+ * mark, filling ticks, percentage) sits on the seam. Reactive off signals; the
+ * whole overlay unmounts once the doors finish sliding.
  */
 export default function GateLoader() {
   const { progress, open } = createGate({ duration: 2200 })
@@ -27,10 +42,14 @@ export default function GateLoader() {
     <Show when={!removed()}>
       <div class={styles.gate} data-open={open() ? '' : undefined} aria-hidden="true">
         <div class={styles.panelTop}>
-          <span class={styles.seam} />
+          <div class={styles.hardware}>
+            <PanelHardware />
+          </div>
         </div>
         <div class={styles.panelBottom}>
-          <span class={styles.seam} />
+          <div class={styles.hardware} data-flip="">
+            <PanelHardware />
+          </div>
         </div>
 
         <Show when={!open()}>

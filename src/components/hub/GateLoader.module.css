@@ -1,8 +1,58 @@
+/*
+ * Brushed-metal entry gate. Two doors joined by a central docking plate, side
+ * rails, a full-width seam, screws and ridged vents; the loader docks on the
+ * seam. The whole hatch is theme-aware — light brushed metal in light mode,
+ * dark steel in dark mode — so it never flashes against the board it reveals.
+ * The bottom door mirrors the top by flipping its hardware layer.
+ */
 .gate {
   position: fixed;
   inset: 0;
   z-index: 300;
   pointer-events: none;
+
+  /* Light brushed-metal palette (default). */
+  --door-1: #f2f4f7;
+  --door-2: #e1e5eb;
+  --fitting: #2e333c;
+  --seam-a: #3a404a;
+  --seam-b: #22262e;
+  --plate-a: #343a44;
+  --plate-b: #262b33;
+  --screw: #c6ccd5;
+  --screw-shadow: rgba(90, 100, 115, 0.55);
+  --vent: #6a717c;
+  --ldr-surface: #f3f5f8;
+  --ldr-pill: #f4f6f9;
+  --nm-d: rgba(150, 160, 175, 0.5);
+  --nm-l: #ffffff;
+  --pill-glow: rgba(255, 255, 255, 0.75);
+  --tick-off: #d3d9e1;
+  --tick-on: #2e333c;
+  --st-label: #c4cad2;
+  --st-pct: #8a919c;
+}
+
+:global([data-theme="dark"]) .gate {
+  --door-1: #171b24;
+  --door-2: #0c0f16;
+  --fitting: #0a0d12;
+  --seam-a: #2a2f3a;
+  --seam-b: #0a0d12;
+  --plate-a: #20252f;
+  --plate-b: #12151c;
+  --screw: #2a2f3a;
+  --screw-shadow: rgba(0, 0, 0, 0.6);
+  --vent: #3a414d;
+  --ldr-surface: #1c212c;
+  --ldr-pill: #161a22;
+  --nm-d: rgba(0, 0, 0, 0.6);
+  --nm-l: rgba(255, 255, 255, 0.05);
+  --pill-glow: rgba(0, 245, 212, 0.14);
+  --tick-off: #2c3340;
+  --tick-on: #e8ecf2;
+  --st-label: #aab1bd;
+  --st-pct: #6d7686;
 }
 
 .panelTop,
@@ -10,36 +60,19 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: 50.5%;
-  background: var(--surface-2);
+  height: 50.6%;
   transition: transform 1.15s cubic-bezier(0.76, 0, 0.18, 1);
   will-change: transform;
 }
 
 .panelTop {
   top: 0;
+  background: linear-gradient(180deg, var(--door-1) 0%, var(--door-2) 100%);
 }
 
 .panelBottom {
   bottom: 0;
-}
-
-/* Machined seam bar along the meeting edge. */
-.seam {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 7px;
-  background: linear-gradient(180deg, #3a404a, #22262e);
-}
-
-.panelTop .seam {
-  bottom: 0;
-}
-
-.panelBottom .seam {
-  top: 0;
-  background: linear-gradient(0deg, #3a404a, #22262e);
+  background: linear-gradient(0deg, var(--door-1) 0%, var(--door-2) 100%);
 }
 
 .gate[data-open] .panelTop {
@@ -50,15 +83,105 @@
   transform: translateY(102%);
 }
 
+/* Hardware layer fills the door; the bottom copy mirrors it. */
+.hardware {
+  position: absolute;
+  inset: 0;
+}
+
+.hardware[data-flip] {
+  transform: scaleY(-1);
+}
+
+/* Full-width seam bar along the meeting edge. */
+.seam {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 7px;
+  background: linear-gradient(180deg, var(--seam-a), var(--seam-b));
+}
+
+/* Central docking plate — half a hexagon on each door. */
+.plate {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 360px;
+  height: 34px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, var(--plate-a), var(--plate-b));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+}
+
+/* Side rails running to the screen edges. */
+.rail {
+  position: absolute;
+  bottom: 0;
+  width: 120px;
+  height: 20px;
+  background: var(--fitting);
+}
+
+.rail[data-side="l"] {
+  left: 0;
+  clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%);
+}
+
+.rail[data-side="r"] {
+  right: 0;
+  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* Ridged vents near the plate. */
+.vents {
+  position: absolute;
+  left: 50%;
+  bottom: 9px;
+  width: 64px;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  background: repeating-linear-gradient(90deg, var(--vent) 0 3px, transparent 3px 8px);
+  opacity: 0.85;
+}
+
+/* Recessed screws at the plate corners. */
+.screw {
+  position: absolute;
+  bottom: 50px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--screw);
+  box-shadow: inset 1px 2px 3px var(--screw-shadow);
+}
+
+.screw[data-side="l"] {
+  left: 24px;
+}
+
+.screw[data-side="r"] {
+  right: 24px;
+}
+
+/* --- Loader, docked on the seam --- */
 .loader {
   position: absolute;
   left: 50%;
-  top: 42%;
-  transform: translate(-50%, -50%);
+  top: 50%;
+  transform: translate(-50%, -60%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
+  transition: opacity 0.35s ease;
+}
+
+.gate[data-open] .loader {
+  opacity: 0;
 }
 
 .mark {
@@ -67,15 +190,15 @@
   width: 46px;
   height: 46px;
   border-radius: 13px;
-  background: var(--surface-raised);
-  box-shadow: var(--shadow-raised);
+  background: var(--ldr-surface);
+  box-shadow: 5px 5px 14px var(--nm-d), -4px -4px 10px var(--nm-l);
 }
 
 .markCore {
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  background: var(--accent);
+  background: #e2583e;
   animation: markSpin 2.4s cubic-bezier(0.6, 0.05, 0.3, 0.95) infinite;
 }
 
@@ -96,26 +219,30 @@
   gap: 6px;
   align-items: center;
   padding: 12px 18px;
-  border-radius: var(--radius-pill);
-  background: var(--surface);
-  box-shadow: var(--shadow-raised);
+  border-radius: 999px;
+  background: var(--ldr-pill);
+  box-shadow:
+    6px 6px 16px var(--nm-d),
+    -4px -4px 12px var(--nm-l),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 34px var(--pill-glow);
 }
 
 .tick {
   width: 5px;
   height: 14px;
   border-radius: 2px;
-  background: color-mix(in srgb, var(--text-mute) 40%, transparent);
+  background: var(--tick-off);
   transition: background 0.15s ease;
 }
 
 .tick[data-state="on"] {
-  background: var(--text);
+  background: var(--tick-on);
 }
 
 .tick[data-state="edge"] {
-  background: var(--accent);
-  box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent);
+  background: #e2583e;
+  box-shadow: 0 0 10px rgba(226, 88, 62, 0.6);
 }
 
 .status {
@@ -130,11 +257,11 @@
   font-size: 12.5px;
   letter-spacing: 0.22em;
   font-weight: 600;
-  color: var(--text);
+  color: var(--st-label);
 }
 
 .statusPct {
   font-size: 11.5px;
   letter-spacing: 0.12em;
-  color: var(--text-mute);
+  color: var(--st-pct);
 }
